@@ -2,12 +2,11 @@ name: CD/CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  DOCKER_USERNAME:  ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_TOKEN:  ${{ secrets.DOCKER_TOKEN }}
-  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
   BUILD_NUMBER: ${{ github.run_number }}
 
 jobs:
@@ -28,22 +27,29 @@ jobs:
           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 
-  Build:            
+  Build:
     name: Build
     needs: Security
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Docker login
         run: echo "${DOCKER_TOKEN}" | docker login -u ${DOCKER_USERNAME} --password-stdin
-      
+
+      - name: Docker build - Rails
+        run: |
+          cd backend
+          docker build -t $DOCKER_USERNAME/article-manager-rails:${BUILD_NUMBER}
+          cd ..
+
       - name: Docker build
-        run: docker build -t $DOCKER_USERNAME/${DOCKER_IMAGE}:${BUILD_NUMBER} .
-      
-      - name: Docker push 
-        run: docker push $DOCKER_USERNAME/${DOCKER_IMAGE}:${BUILD_NUMBER}
+        run: docker compose build
+
+      - name: Docker push
+        run: docker compose push
+
   Deploy:
     name: Deploy
     needs: Build
@@ -52,8 +58,6 @@ jobs:
       SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       SSH_HOST: ${{ secrets.SSH_HOST }}
       SSH_USER: ${{ secrets.SSH_USER }}
-      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-      SERVER: ${{ secrets.SERVER }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -74,23 +78,17 @@ jobs:
       - name: Ensure docker is installed
         run: ssh deploy 'bash -s' < ./aws/scripts/install_docker.sh
 
+      - name: Copy docker compose file
+        run: scp docker-compose.yml deploy@${SSH_HOST}:/
+
       - name: Pull Docker image
-        run: ssh deploy "docker pull ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${BUILD_NUMBER}"
-      
-      - name: Get certificate
-        run: | 
-          ssh deploy "echo '${PRIVATE_KEY}' > privatekey.pem"
-          ssh deploy "echo '${SERVER}' > server.crt"
+        run: ssh deploy "docker compose pull"
 
-      - name: Create Docker container
+      - name: Delete existing containers
         run: |
-          ssh deploy "docker stop ${DOCKER_IMAGE} || true && docker rm ${DOCKER_IMAGE} || true"
-          ssh deploy "docker create --name ${DOCKER_IMAGE} -p 443:8443 ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${BUILD_NUMBER}"
-      
-      - name: Add SSL Cert. to instance
-        run: |
-          ssh deploy "docker cp ./privatekey.pem ${DOCKER_IMAGE}:/privatekey.pem"
-          ssh deploy "docker cp ./server.crt ${DOCKER_IMAGE}:/server.crt"
+          ssh deploy "docker stop ca-react_app-1 || true && docker rm ca-react_app-1 || true" 
+          ssh deploy "docker stop ca-rails_app-1 || true && docker rm ca-rails_app-1 || true" 
+          ssh deploy "docker stop ca-html_client-1 || true && docker rm ca-html_client-1 || true"
 
-      - name: Run docker container
-        run: ssh deploy "docker start ${DOCKER_IMAGE}"
+      - name: Spin up compose
+        run: ssh deploy "docker compose up --no-build -d"

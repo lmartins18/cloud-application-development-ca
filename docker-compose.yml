@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   rails_app:
+    image: luismwolf/article-manager-rails:latest
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -11,6 +12,7 @@ services:
       DEFAULT_PORT: 3000
 
   react_app:
+    image: luismwolf/article-manager-react:latest
     build:
       context: ./article-manager-react
       dockerfile: Dockerfile
@@ -20,6 +22,7 @@ services:
       - "rails_app:localhost"
 
   html_client:
+    image: luismwolf/article-manager-html:latest
     build:
       context: ./article-manager-html
       dockerfile: Dockerfile
