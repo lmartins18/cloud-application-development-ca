@@ -20,7 +20,7 @@ const EditArticle: React.FC = () => {
 
     const fetchArticle = async () => {
         try {
-            const response = await axios.get(`/articles/${id}`);
+            const response = await axios.get(`http://127.0.0.1:3000/api/v1/articles/${id}`);
             setArticle(response.data);
             setFormData({
                 title: response.data.title,

@@ -48,6 +48,5 @@
   "devDependencies": {
     "@types/uniqid": "^5.3.4",
     "tailwindcss": "^3.4.3"
-  },
-  "proxy": "http://rails_app:3000/api/v1"
+  }
 }

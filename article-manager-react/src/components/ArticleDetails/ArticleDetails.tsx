@@ -14,7 +14,7 @@ const ArticleDetails: React.FC = () => {
 
     const fetchArticle = async () => {
         try {
-            const response = await axios.get(`/articles/${id}`);
+            const response = await axios.get(`http://127.0.0.1:3000/api/v1/articles/${id}`);
             setArticle(response.data);
         } catch (error) {
             console.error('Error fetching article:', error);
@@ -23,13 +23,13 @@ const ArticleDetails: React.FC = () => {
 
     const handleEditClick = () => {
         if (article) {
-            navigate(`/articles/edit/${id}`);
+            navigate(`http://127.0.0.1:3000/api/v1/articles/edit/${id}`);
         }
     };
 
     const handleDeleteClick = async () => {
         try {
-            await axios.delete(`/articles/${id}`);
+            await axios.delete(`http://127.0.0.1:3000/api/v1/articles/${id}`);
             navigate("/");
         } catch (error) {
             console.error('Error deleting article:', error);

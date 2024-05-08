@@ -14,7 +14,7 @@ export const ArticleList: React.FC = () => {
 
     const fetchArticles = async () => {
         try {
-            const response = await axios.get('articles');
+            const response = await axios.get('http://127.0.0.1:3000/api/v1/articles');
             setArticles(response.data);
         } catch (error) {
             console.error('Error fetching articles:', error);
