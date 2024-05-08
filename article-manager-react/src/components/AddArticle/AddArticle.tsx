@@ -10,7 +10,7 @@ const AddArticle: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/articles', {
+            const response = await axios.post('http://34.248.117.130:3000/articles', {
                 article
             });
             if (response.status === 201) {
