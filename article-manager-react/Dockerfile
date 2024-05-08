@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:21-alpine3.18
+FROM node:22.1-alpine3.18
 ENV NODE_ENV=production
 
 # Copy package.json and package-lock.json separately to leverage Docker layer caching
