@@ -1,0 +1,17 @@
+{
+  "name": "article-manager-html",
+  "version": "1.0.0",
+  "description": "vanilla HTML CSS JS client",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "local-web-server": "^5.3.3"
+  }
+}

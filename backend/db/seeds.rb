@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Article.destroy_all
+
+Article.create!([{
+  title: "Hello world!",
+  body: "Default artile as part of the seed.",
+  published: true
+}])

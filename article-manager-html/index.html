@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article List</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="max-w-4xl mx-auto px-4 py-8 h-full flex flex-1 flex-col gap-3">
+        <h1 class="text-3xl font-bold mb-6">Article List</h1>
+        <ul id="article-list" class="divide-y divide-gray-200 flex flex-col flex-1 overflow-y-auto">
+            <!-- Articles will be dynamically added here -->
+        </ul>
+
+        <div id="filters">
+            <label class="mr-4">
+                <input name="filter" type="radio" value="published" class="mr-1"
+                    onclick="handleFilterChange('published')" />
+                Show Published
+            </label>
+            <label class="mr-4">
+                <input name="filter" type="radio" value="notPublished" class="mr-1"
+                    onclick="handleFilterChange('notPublished')" />
+                Show Not Published
+            </label>
+            <label>
+                <input name="filter" type="radio" value="all" class="mr-1" checked
+                    onclick="handleFilterChange('all')" />
+                Show All
+            </label>
+        </div>
+        <span class='w-full md:w-auto ml-auto'>
+            <button class="w-full flex">
+                <a href="./articles/add.html"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                    Add Article
+                </a>
+            </button>
+        </span>
+    </div>
+    <script src="./script/articles.js"></script>
+</body>
+
+</html>

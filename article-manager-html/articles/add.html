@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article List</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./../css/style.css">
+</head>
+
+<body>
+    <div class="max-w-md mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Add Article</h1>
+        <form id="add-article-form">
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-semibold mb-2">Title:</label>
+                <input type="text" id="title"
+                    class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    required />
+            </div>
+            <div class="mb-4">
+                <label for="body" class="block text-sm font-semibold mb-2">Body:</label>
+                <textarea id="body"
+                    class="w-full p-2 border border-gray-300 rounded-md h-32 focus:outline-none focus:border-blue-500"
+                    required></textarea>
+            </div>
+            <div class="mb-4">
+                <input type="checkbox" id="published" class="mr-2" />
+                <label for="published" class="text-sm font-semibold text-gray-700">Published</label>
+            </div>
+            <span class='flex justify-between'>
+                <a href="/" class="text-blue-500 hover:text-blue-600">
+                    &larr; Back to Article List
+                </a>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add
+                    Article</button>
+            </span>
+        </form>
+    </div>
+    <script src="./../script/add-article.js"></script>
+</body>
+
+</html>

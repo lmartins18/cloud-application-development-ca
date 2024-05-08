@@ -18,7 +18,7 @@ class Api::V1::ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      render :show, status: :created, location: api_v1_article_url(@article)
+      render json: @article.id, status: :created, location: api_v1_article_url(@article)
     else
       render json: @article.errors, status: :unprocessable_entity
     end
