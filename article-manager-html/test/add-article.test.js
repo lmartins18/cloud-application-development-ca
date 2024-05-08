@@ -1,5 +1,5 @@
 // Import the function to test
-const { handleSubmit } = require('./your-file.js');
+const { handleSubmit } = require('./../script/add-article.js');
 
 // Mock the fetch function
 global.fetch = jest.fn();

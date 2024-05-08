@@ -1,5 +1,5 @@
 // Import the functions to test
-const { fetchArticle, handleEditClick, handleDeleteClick } = require('./your-file.js');
+const { fetchArticle, handleEditClick, handleDeleteClick } = require('./../script/article-details');
 
 // Mock fetch function
 global.fetch = jest.fn();

@@ -19,4 +19,4 @@ EXPOSE ${DEFAULT_PORT}
 RUN rails db:migrate
 RUN rails db:seed
 
-CMD ["rails", "server"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

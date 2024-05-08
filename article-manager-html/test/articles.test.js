@@ -1,5 +1,5 @@
 // Import the functions to test
-const { fetchArticles, displayArticles, filterArticles, handleFilterChange } = require('./your-file.js');
+const { fetchArticles, displayArticles, filterArticles, handleFilterChange } = require('./../script/articles.js');
 
 // Mock fetch function
 global.fetch = jest.fn();
