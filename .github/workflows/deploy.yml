@@ -73,7 +73,7 @@ jobs:
         run: ssh deploy 'bash -s' < ./aws/scripts/install_docker.sh
 
       - name: Copy docker compose file
-        run: scp docker-compose.yml ${SSH_USER}@${SSH_HOST}:/
+        run: scp -i ~/.ssh/deploy.key docker-compose.yml ${SSH_USER}@${SSH_HOST}:~/.
 
       - name: Pull Docker image
         run: ssh deploy "docker compose pull"
