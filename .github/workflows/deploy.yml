@@ -69,8 +69,8 @@ jobs:
             StrictHostKeyChecking no
           END
 
-      - name: Ensure docker is installed
-        run: ssh deploy 'bash -s' < ./aws/scripts/install_docker.sh
+      # - name: Ensure docker is installed
+      # run: ssh deploy 'bash -s' < ./aws/scripts/install_docker.sh
 
       - name: Copy docker compose file
         run: scp docker-compose.yml deploy@${SSH_HOST}:/
