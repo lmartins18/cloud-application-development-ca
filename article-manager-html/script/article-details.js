@@ -5,7 +5,7 @@ window.onload = fetchArticle;
 
 async function fetchArticle() {
     try {
-        const response = await fetch(`http://127.0.0.1:3000/api/v1/articles/${id}`);
+        const response = await fetch(`http://34.248.117.130:3000/api/v1/articles/${id}`);
         const article = await response.json();
 
         document.getElementById('article-title').textContent = article.title;
@@ -26,7 +26,7 @@ async function handleEditClick() {
 
 async function handleDeleteClick() {
     try {
-        await fetch(`http://127.0.0.1:3000/api/v1/articles/${id}`, {
+        await fetch(`http://34.248.117.130:3000/api/v1/articles/${id}`, {
             method: 'DELETE'
         });
         window.location.href = "/";

@@ -12,7 +12,7 @@ window.onload = async (event) => {
 // Functions
 async function fetchArticles() {
     try {
-        const response = await fetch('http://127.0.0.1:3000/api/v1/articles');
+        const response = await fetch('http://34.248.117.130:3000/api/v1/articles');
         articles = await response.json();
     } catch (error) {
         console.error('Error fetching articles:', error);

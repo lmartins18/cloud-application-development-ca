@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Fetch the article details
     try {
-        const response = await fetch(`http://127.0.0.1:3000/api/v1/articles/${id}`);
+        const response = await fetch(`http://34.248.117.130:3000/api/v1/articles/${id}`);
         if (response.ok) {
             const article = await response.json();
             // Fill the form with article details
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Submit form data
         try {
-            const response = await fetch(`http://127.0.0.1:3000/api/v1/articles/${id}`, {
+            const response = await fetch(`http://34.248.117.130:3000/api/v1/articles/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

@@ -86,7 +86,7 @@ describe('handleDeleteClick', () => {
         await handleDeleteClick(id);
 
         // Check if fetch is called with correct arguments
-        expect(fetch).toHaveBeenCalledWith(`http://127.0.0.1:3000/api/v1/articles/${id}`, {
+        expect(fetch).toHaveBeenCalledWith(`http://34.248.117.130:3000/api/v1/articles/${id}`, {
             method: 'DELETE'
         });
 

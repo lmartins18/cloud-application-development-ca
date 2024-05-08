@@ -6,7 +6,7 @@ document.getElementById('add-article-form').addEventListener('submit', async fun
     const published = document.getElementById('published').checked;
 
     try {
-        const response = await fetch('http://127.0.0.1:3000/api/v1/articles', {
+        const response = await fetch('http://34.248.117.130:3000/api/v1/articles', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

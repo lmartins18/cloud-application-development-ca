@@ -27,7 +27,7 @@ describe('handleSubmit', () => {
         expect(event.preventDefault).toHaveBeenCalledTimes(1);
 
         // Check if fetch has been called with the correct arguments
-        expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:3000/api/v1/articles', {
+        expect(fetch).toHaveBeenCalledWith('http://34.248.117.130:3000/api/v1/articles', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ describe('handleSubmit', () => {
         expect(event.preventDefault).toHaveBeenCalledTimes(1);
 
         // Check if fetch has been called with the correct arguments
-        expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:3000/api/v1/articles', {
+        expect(fetch).toHaveBeenCalledWith('http://34.248.117.130:3000/api/v1/articles', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
