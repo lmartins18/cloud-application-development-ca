@@ -38,12 +38,6 @@ jobs:
       - name: Docker login
         run: echo "${DOCKER_TOKEN}" | docker login -u ${DOCKER_USERNAME} --password-stdin
 
-      - name: Docker build - Rails
-        run: |
-          cd backend
-          docker build -t $DOCKER_USERNAME/article-manager-rails:${BUILD_NUMBER}
-          cd ..
-
       - name: Docker build
         run: docker compose build
 
