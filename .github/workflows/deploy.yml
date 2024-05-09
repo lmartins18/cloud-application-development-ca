@@ -30,9 +30,30 @@ jobs:
           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 
+  RubyTests:
+    name: Ruby Tests
+    needs: Security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0"
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: bundle install
+
+      - name: Run tests
+        working-directory: ./backend
+        run: ruby -Itest test/all.rb
+
   Build:
     name: Build
-    needs: Security
+    needs: RubyTests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -46,25 +67,6 @@ jobs:
 
       - name: Docker push
         run: docker compose push
-
-  RubyTests:
-    name: Ruby Tests
-    needs: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.0"
-
-      - name: Install dependencies
-        run: bundle install
-
-      - name: Run tests
-        run: ruby -Itest test/all.rb
 
   Deploy:
     name: Deploy
