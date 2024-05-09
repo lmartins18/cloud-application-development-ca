@@ -1,3 +1,5 @@
+require_relative 'logger'
+
 class ArticleService
   def self.index
     MyLogger.instance.log(:info, 'Fetching all articles')

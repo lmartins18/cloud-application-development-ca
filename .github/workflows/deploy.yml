@@ -47,6 +47,25 @@ jobs:
       - name: Docker push
         run: docker compose push
 
+  RubyTests:
+    name: Ruby Tests
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0"
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run tests
+        run: ruby -Itest test/all.rb
+
   Deploy:
     name: Deploy
     needs: Build
