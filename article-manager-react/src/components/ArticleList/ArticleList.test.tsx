@@ -1,20 +1,48 @@
-import { screen, render, waitFor } from '@testing-library/react';
-import axios from 'axios';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import { ArticleList } from './ArticleList';
 
-jest.mock('axios');
+describe('ArticleList', () => {
+    it('should render article list', () => {
+        render(
+            <ArticleList />
+        );
 
-test('renders article list', async () => {
-    const articles = [
-        { id: 1, title: 'Article 1' },
-        { id: 2, title: 'Article 2' },
-    ];
+        expect(screen.getByText('Article List')).toBeInTheDocument();
+        expect(screen.getByText('Test Title 1')).toBeInTheDocument();
+        expect(screen.getByText('Test Title 2')).toBeInTheDocument();
+    });
 
-    (axios.get as jest.Mock).mockResolvedValue({ data: articles });
+    it('should filter articles by published status', () => {
+        render(
 
-    render(<ArticleList />);
+            <ArticleList />
 
-    await waitFor(() => {
-        expect(screen.getByText('Article 1') && screen.getByText('Article 2')).toBeInTheDocument();
+        );
+
+        expect(screen.getByText('Test Title 1')).toBeInTheDocument();
+        expect(screen.getByText('Test Title 2')).toBeInTheDocument();
+
+        const showPublishedButton = screen.getByText('Show Published');
+        const showNotPublishedButton = screen.getByText('Show Not Published');
+
+        showPublishedButton.click();
+        expect(screen.getByText('Test Title 1')).toBeInTheDocument();
+        expect(screen.queryByText('Test Title 2')).toBeNull();
+
+        showNotPublishedButton.click();
+        expect(screen.queryByText('Test Title 1')).toBeNull();
+        expect(screen.getByText('Test Title 2')).toBeInTheDocument();
+    });
+
+    it('should render "Add Article" button', () => {
+        render(
+
+            <ArticleList />
+
+        );
+
+        expect(screen.getByText('Add Article')).toBeInTheDocument();
     });
 });
