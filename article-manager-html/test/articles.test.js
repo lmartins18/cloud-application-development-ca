@@ -1,7 +1,5 @@
-// Import the functions to test
-const { fetchArticles, displayArticles, filterArticles, handleFilterChange } = require('./../script/articles.js');
+import { fetchArticles, displayArticles, filterArticles, handleFilterChange } from "../script/articles.js"
 
-// Mock fetch function
 global.fetch = jest.fn();
 
 describe('fetchArticles', () => {
@@ -80,5 +78,3 @@ describe('handleFilterChange', () => {
         expect(filterArticles).toHaveBeenCalledWith('all');
     });
 });
-
-// You can also write tests for displayArticles function, but it mainly involves DOM manipulation which is harder to test with Jest.

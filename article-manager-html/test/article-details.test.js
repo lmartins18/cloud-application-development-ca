@@ -1,14 +1,13 @@
-// Create a fake window object with a location property
 const { window } = new JSDOM();
 global.window = window;
 
-// Mock the functions and properties of window.location
+
 global.window.location = {
     search: '',
     href: '',
 };
 
-// Now you can import and test your script
+
 const { fetchArticle, handleEditClick, handleDeleteClick } = require('./../script/article-details');
 
 describe('fetchArticle', () => {
@@ -40,4 +39,3 @@ describe('fetchArticle', () => {
     });
 });
 
-// Similarly, you can write tests for handleEditClick and handleDeleteClick functions

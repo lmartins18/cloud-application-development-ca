@@ -1,7 +1,5 @@
-// Import the functions to test
 const { handleFormSubmission } = require('../script/edit-article.js');
 
-// Mock fetch function
 global.fetch = jest.fn();
 
 describe('handleFormSubmission', () => {
@@ -42,6 +40,4 @@ describe('handleFormSubmission', () => {
         // Check if error is logged
         expect(console.error).toHaveBeenCalledWith('Error fetching article:', expect.any(Error));
     });
-
-    // You can write similar tests for submitting the form successfully and failing to submit the form
 });
