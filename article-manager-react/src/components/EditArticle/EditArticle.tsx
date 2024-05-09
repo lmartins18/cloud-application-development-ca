@@ -44,7 +44,7 @@ const EditArticle: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.patch(`/articles/${id}`, formData);
+            await axios.patch(`http://34.248.117.130:3000/api/v1/articles/${id}`, formData);
             navigate(`/articles/${id}`);
         } catch (error) {
             console.error('Error editing article:', error);

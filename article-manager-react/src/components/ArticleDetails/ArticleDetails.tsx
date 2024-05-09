@@ -23,7 +23,7 @@ const ArticleDetails: React.FC = () => {
 
     const handleEditClick = () => {
         if (article) {
-            navigate(`articles/edit/${id}`);
+            navigate(`/articles/edit/${id}`);
         }
     };
 

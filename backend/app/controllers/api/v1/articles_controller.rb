@@ -3,7 +3,7 @@ class Api::V1::ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.all
+    @articles = ArticleService.index
 
     render json: @articles
   end
@@ -15,9 +15,9 @@ class Api::V1::ArticlesController < ApplicationController
 
   # POST /articles
   def create
-    @article = Article.new(article_params)
+    @article = ArticleService.create(article_params)
 
-    if @article.save
+    if @article.persisted?
       render json: @article.id, status: :created, location: api_v1_article_url(@article)
     else
       render json: @article.errors, status: :unprocessable_entity
@@ -26,28 +26,37 @@ class Api::V1::ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1
   def update
-    if @article.update(article_params)
-      render json: @article
+    if @article
+      @article = ArticleService.update(params[:id], article_params)
+      if @article
+        render json: @article
+      else
+        render json: { error: 'Article not found' }, status: :not_found
+      end
     else
-      render json: @article.errors, status: :unprocessable_entity
+      render json: { error: 'Article not found' }, status: :not_found
     end
   end
 
   # DELETE /articles/1
   def destroy
-    @article.destroy
-    render json: Article.all, status: :no_content
+    if @article
+      @article = ArticleService.destroy(params[:id])
+      render json: ArticleService.index, status: :no_content
+    else
+      render json: { error: 'Article not found' }, status: :not_found
+    end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_article
-    @article = Article.find_by(id: params[:id])
-    render json: { error: 'Article not found' }, status: :not_found unless @article
+    @article = ArticleService.show(params[:id])
+    unless @article
+      render json: { error: 'Article not found' }, status: :not_found
+    end
   end
 
-  # Only allow a list of trusted parameters through.
   def article_params
     params.require(:article).permit(:title, :body, :published)
   end
