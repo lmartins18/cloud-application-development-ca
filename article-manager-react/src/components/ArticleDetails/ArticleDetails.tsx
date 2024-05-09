@@ -23,7 +23,7 @@ const ArticleDetails: React.FC = () => {
 
     const handleEditClick = () => {
         if (article) {
-            navigate(`http://34.248.117.130:3000/api/v1/articles/edit/${id}`);
+            navigate(`articles/edit/${id}`);
         }
     };
 
