@@ -1,4 +1,4 @@
-import { fetchArticles, displayArticles, filterArticles, handleFilterChange } from "../script/articles.js"
+const { fetchArticles, displayArticles, filterArticles, handleFilterChange } = require("../script/articles.js")
 
 global.fetch = jest.fn();
 

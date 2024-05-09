@@ -61,5 +61,3 @@ function filterArticles(filterOption) {
 function handleFilterChange(filterOption) {
     filterArticles(filterOption);
 };
-
-export { fetchArticles, displayArticles, filterArticles, handleFilterChange }
